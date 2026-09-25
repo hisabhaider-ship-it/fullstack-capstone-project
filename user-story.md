@@ -1,13 +1,28 @@
-# User Stories for GiftLink Application
+# User Story: Browse and Filter Gifts
 
-## As a User
-- **Story 1**: As a visitor, I want to browse listed gifts so that I can find household items I need.
-- **Story 2**: As a registered user, I want to register and log in securely so that my profile data remains safe.
-- **Story 3**: As a donor, I want to list household items with details and images so that others can claim them.
-- **Story 4**: As a recipient, I want to filter items by category and condition so that I can locate specific items easily.
-- **Story 5**: As a user, I want to view detailed pages for individual items to evaluate their condition.
+## User Story
+**As a** registered user,  
+**I want to** search and filter available gifts by category and condition,  
+**So that** I can easily find household items I need in my local area.
 
-## Technical & Maintenance Stories
-- **Story 6**: As a developer, I want to set up JWT authentication to protect user routes.
-- **Story 7**: As a DevOps engineer, I want to containerize the application with Docker for seamless deployment.
-- **Story 8**: As a developer, I want to implement sentiment analysis on comments using the natural package.
+## Details and Assumptions
+- The application fetches list data from the MongoDB database collection `gifts`.
+- Users can filter by category (e.g., Furniture, Electronics, Toys).
+- The system defaults to displaying all available active items if no filter criteria are specified.
+- The user must be connected to the internet to perform real-time searching.
+
+## Acceptance Criteria
+```gherkin
+Feature: Filter items by category
+
+  Scenario: User filters gifts by category successfully
+    Given the user is on the GiftLink homepage
+    When the user selects "Furniture" from the category dropdown menu
+    And clicks the "Search" button
+    Then only items with category "Furniture" should be displayed in the list
+    And a total count of matching items should be displayed above the grid
+
+  Scenario: User resets search filters
+    Given the user has applied a category filter
+    When the user clicks the "Reset" button
+    Then all available gifts across all categories should be listed again
